@@ -1,4 +1,4 @@
-import React from "react";
+import { useState } from "react";
 import {
   View,
   Text,
@@ -20,7 +20,13 @@ const PopularJobs = () => {
     num_pages: "1",
   });
 
-  // console.log("data: ", data);
+  const [selectedJob, setSelectedJob] = useState();
+
+  const handleCardPress = (item) => {
+    router.push(`/job-details/${item.job_id}`);
+    setSelectedJob(item.job_id);
+  };
+
   return (
     <View style={styles.container}>
       <View style={styles.header}>
@@ -42,7 +48,8 @@ const PopularJobs = () => {
               return (
                 <PopularJobCard
                   item={item}
-                  handleCardPress={() => console.log("hi")}
+                  selectedJob={selectedJob}
+                  handleCardPress={() => handleCardPress(item)}
                 />
               );
             }}
